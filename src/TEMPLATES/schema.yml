@@ -1,0 +1,25 @@
+version: 2
+
+sources:
+        - name: {{ TABLE_SCHEMA }}_{{ TABLE_CATALOG }}
+          database: {{ TABLE_CATALOG }}
+          schema: {{ TABLE_SCHEMA }}
+          quoting:
+                database: true
+                schema: true
+                identifier: true
+          tables: 
+          {% for __table__ in TABLES.keys() -%}
+                - name: {{ __table__ }}
+          {% endfor %}
+         
+models:
+{% for __table__ in TABLES.keys() %}
+- name: {{ TABLE_CATALOG }}_{{ __table__ }}
+  {% for __column__ in TABLES[__table__]['COLUMN_NAME'] if 'ID' in __column__ %}
+  - name: {{ TABLE_SCHEMA | lower }}__{{ TABLE_NAME | lower }}__{{ __column__ | lower }}
+    {% if loop.first %}columns:{% endif %}
+    tests:
+    - not_null  
+  {% endfor %}
+{% endfor %}
