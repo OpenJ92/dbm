@@ -1,2 +1,2 @@
-# scd
-Schema Change Detection and Template Meta-Programming.
+# scd-tmp
+Schema Change Detection and Template Meta-Programming for dbt.

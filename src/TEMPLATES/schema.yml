@@ -15,10 +15,10 @@ sources:
          
 models:
 {% for __table__ in TABLES.keys() %}
-- name: {{ TABLE_CATALOG }}_{{ __table__ }}
-  {% for __column__ in TABLES[__table__]['COLUMN_NAME'] if 'ID' in __column__ %}
-  - name: {{ TABLE_SCHEMA | lower }}__{{ TABLE_NAME | lower }}__{{ __column__ | lower }}
-    {% if loop.first %}columns:{% endif %}
+- name: {{ TABLE_SCHEMA }}_{{ __table__ }}
+  {% for __column__ in TABLES[__table__]['COLUMN_NAME'] if 'ID' in __column__ -%}
+  {% if loop.first %}columns:{% endif %}
+  - name: {{ TABLE_SCHEMA | lower }}__{{ __table__ | lower }}__{{ __column__ | lower }}
     tests:
     - not_null  
   {% endfor %}
