@@ -1,6 +1,7 @@
 from src.CONNECT import CONNECT
 
 from jinja2 import Environment, PackageLoader
+import re
 import os
 
 if __name__ == '__main__':
@@ -92,4 +93,32 @@ if __name__ == '__main__':
 
         # there's no need to parse the dbt files, because we have a progmatic means
         # of naming convention -- __column__ -> schema__table__column
+        # The need to parse these files will come down to whether we want to 
+        # maintain the current naming convention in the dbt base files already
+        # constructed. If this is the case, let us begin to do so today. 
 
+        example = files['RAW_STITCHDATA']
+        open_example = open(example[5])
+        a = open_example.read()
+
+        b = re.compile(r"renamed.* as (?P<cols>\(.*\))", re.MULTILINE|re.DOTALL)
+        c = re.search(b, a)
+        b1 = re.compile(r'".*" as .*,?', re.MULTILINE)
+        d = [i.replace('"', '').split(' as ') for i in re.findall(b1, c.group(1))]
+        q = {i[0]: i[1] for i in d}
+
+        l = columns_raw[                                             \
+                    (columns_raw["TABLE_NAME"] == 'ADDRESSES_BUILDINGS')\
+                    &                                                \
+                    (columns_raw["TABLE_SCHEMA"] == "STITCHDATA")    \
+                       ]["COLUMN_NAME"]
+
+        m = l.map(q)
+        n = l[m.isna()]
+        # if n is empty, then there're no new columns in RAW to replicate over and
+        # we can move on to the next table in the schema. Otherwise, we must update
+        # schema.yml and the coresponding dbt file which has missing elements. 
+
+        # next we seek to construct a set of objects and policies coresponding to 
+        # those objects so that when we materialize the schema.yml and dbt files, 
+        # we have some more control over thier construction.
