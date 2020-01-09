@@ -9,24 +9,37 @@ class SCHEMA(object):
         self._name = name
         self._data = data
         self._policy = self.read_policy()
-        self.load_dbt()
-        self._tables = self.construct_tables()
+        self.setup_dbt()
+        self._tables = self.construct_tables(); del self._data
+        self.construct_dbt()
+    
+    def __getitem__(self, item):
+        return self._tables[item]
 
     def read_policy(self):
         pass
 
-    def load_dbt(self):
+    def setup_dbt(self):
         self._dbt = f'{self._database._dbt}{self._database._name}_{self._name}'
         if not exists(self._dbt):
             mkdir(f'{self._dbt}/')
             mkdir(f'{self._dbt}/base/')
             mkdir(f'{self._dbt}/transformed/')
 
+    def construct_dbt(self):
+        if not exists(f'{self._dbt}/base/schema.yml'):
+            with open(f'{self._dbt}/base/schema.yml', 'w+') as f:
+                template = self._database._env.get_template("schema.yml")
+                rendered = template.render(
+                        TABLE_CATALOG=self._database._name,
+                        TABLE_SCHEMA=self._name,
+                        TABLES=self._data["TABLE_NAME"].unique()
+                                          )
+                f.write(rendered)
+
     def construct_tables(self):
         unique_tables = self._data['TABLE_NAME'].unique()
-        return {
-                table
-                :
+        return [
                 TABLE(
                        self,
                        table,
@@ -35,5 +48,5 @@ class SCHEMA(object):
                                  ]
                       )
                 for table in unique_tables
-                }
+               ]
 

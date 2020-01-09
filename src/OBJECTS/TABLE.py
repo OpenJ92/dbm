@@ -8,38 +8,26 @@ class TABLE(object):
         self._schema = SCHEMA
         self._name = name
         self._data = data
-        self._dbt = f'{self._schema._dbt}/base/{self._schema._name}_{self._name}.sql'
-        self._columns = self.construct_columns()
-        self.load_dbt()
+        self._columns = self.construct_columns(); del self._data
+        self.construct_dbt()
+
+    def __getitem__(self, item):
+        return self._columns[item]
 
     def read_policy(self):
         pass
 
     def construct_dbt(self):
-        with open(self._dbt, "w+") as f:
-            template = self._schema._database._env.get_template("model.sql")
-            #rendered = template.render(self) (make this happen)
-            rendered = template.render(
-                         TABLE_CATALOG=self._schema._database._name,
-                         TABLE_SCHEMA=self._schema._name,
-                         TABLE_NAME=self._name,
-                         COLUMN_NAME=self._data['COLUMN_NAME']
-                                      )
-            f.write(rendered)
-
-    def load_dbt(self):
-        try:
-            f = open(self._dbt)
-            return f.read()
-        except IOError:
-            # construct the file
-            self.construct_dbt()
+        self._dbt = f'{self._schema._dbt}/base/{self._schema._name}_{self._name}.sql'
+        if not exists(self._dbt):
+            with open(self._dbt, "w+") as f:
+                template = self._schema._database._env.get_template("model.sql")
+                rendered = template.render(TABLE=self)
+                f.write(rendered)
 
     def construct_columns(self):
         unique_columns = self._data['COLUMN_NAME'].unique()
-        return {
-                column
-                :
+        return [
                 COLUMN(
                         self,
                         column,
@@ -48,4 +36,4 @@ class TABLE(object):
                                   ]
                        )
                 for column in unique_columns
-                }
+               ]

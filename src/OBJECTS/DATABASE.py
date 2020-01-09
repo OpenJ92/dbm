@@ -10,14 +10,15 @@ class DATABASE(object):
         self._env = Environment(loader=PackageLoader('src', 'TEMPLATES'))
         self._schemas = self.construct_schemas(); del self._data
 
+    def __getitem__(self, item):
+        return self._schemas[item]
+
     def read_policy(self):
         pass
 
     def construct_schemas(self):
         unique_schema = self._data['TABLE_SCHEMA'].unique()
-        return {                                                        
-                 schema                                                 
-                 :                                                      
+        return [                                                        
                  SCHEMA(                                                
                         self,                                           
                         schema,                                         
@@ -26,4 +27,4 @@ class DATABASE(object):
                                   ]
                         )                                               
                  for schema in unique_schema                            
-               }
+               ]
