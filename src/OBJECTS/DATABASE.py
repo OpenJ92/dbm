@@ -1,9 +1,13 @@
+from jinja2 import Environment, PackageLoader
+
 from src.OBJECTS.SCHEMA import SCHEMA
 
 class DATABASE(object):
-    def __init__(self, CONNECT):
+    def __init__(self, CONNECT, dbt='../dbt/models/'):
         self._name = CONNECT.name
         self._data = CONNECT._extract('select * from columns;')
+        self._dbt = dbt
+        self._env = Environment(loader=PackageLoader('src', 'TEMPLATES'))
         self._schemas = self.construct_schemas(); del self._data
 
     def read_policy(self):
