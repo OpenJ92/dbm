@@ -9,9 +9,10 @@ class SCHEMA(object):
         self._name = name
         self._data = data
         self._policy = self.read_policy()
+        self._dbt = f'{self._database._dbt}{self._database._name}_{self._name}'
         self.setup_dbt()
         self._tables = self.construct_tables(); del self._data
-        self.construct_dbt()
+        # self.construct_dbt()
     
     def __getitem__(self, item):
         return self._tables[item]
@@ -20,7 +21,6 @@ class SCHEMA(object):
         pass
 
     def setup_dbt(self):
-        self._dbt = f'{self._database._dbt}{self._database._name}_{self._name}'
         if not exists(self._dbt):
             mkdir(f'{self._dbt}/')
             mkdir(f'{self._dbt}/base/')
