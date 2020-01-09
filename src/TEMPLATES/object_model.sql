@@ -3,7 +3,7 @@ with src_{{ TABLE._schema._name }}_{{ TABLE._name }} as (
 	{{- '{{' -}} 
 	source(
 		"{{ TABLE._schema._name }}_{{ TABLE._schema._database._name }}",
-		"{{ TABLE._name}}"
+		"{{ TABLE._name }}"
 	      )
 	{{ '}}' }}
 ),

@@ -8,10 +8,9 @@ class TABLE(object):
     def __init__(self, SCHEMA, name, data):
         self._schema = SCHEMA
         self._name = name
-        self._data = data
+        self._data = data; self._columns = self.construct_columns(); del self._data
         self._dbt = f'{self._schema._dbt}/base/{self._schema._name}_{self._name}.sql'
-        self._columns = self.construct_columns(); del self._data
-        #self.construct_dbt()
+        self.construct_dbt()
 
     def __getitem__(self, item):
         return self._columns[item]

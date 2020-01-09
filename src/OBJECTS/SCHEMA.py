@@ -12,7 +12,7 @@ class SCHEMA(object):
         self._dbt = f'{self._database._dbt}{self._database._name}_{self._name}'
         self.setup_dbt()
         self._tables = self.construct_tables(); del self._data
-        # self.construct_dbt()
+        self.construct_dbt()
     
     def __getitem__(self, item):
         return self._tables[item]
