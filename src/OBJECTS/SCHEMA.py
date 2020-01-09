@@ -29,12 +29,8 @@ class SCHEMA(object):
     def construct_dbt(self):
         if not exists(f'{self._dbt}/base/schema.yml'):
             with open(f'{self._dbt}/base/schema.yml', 'w+') as f:
-                template = self._database._env.get_template("schema.yml")
-                rendered = template.render(
-                        TABLE_CATALOG=self._database._name,
-                        TABLE_SCHEMA=self._name,
-                        TABLES=self._data["TABLE_NAME"].unique()
-                                          )
+                template = self._database._env.get_template("object_schema.yml")
+                rendered = template.render(SCHEMA=self)
                 f.write(rendered)
 
     def construct_tables(self):

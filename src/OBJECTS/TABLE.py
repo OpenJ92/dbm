@@ -21,7 +21,7 @@ class TABLE(object):
         self._dbt = f'{self._schema._dbt}/base/{self._schema._name}_{self._name}.sql'
         if not exists(self._dbt):
             with open(self._dbt, "w+") as f:
-                template = self._schema._database._env.get_template("model.sql")
+                template = self._schema._database._env.get_template("object_model.sql")
                 rendered = template.render(TABLE=self)
                 f.write(rendered)
 

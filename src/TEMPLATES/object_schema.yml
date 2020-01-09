@@ -1,0 +1,27 @@
+version: 2
+
+source:
+        - name: {{ SCHEMA._name }}_{{ SCHEMA._database._name }}
+          database: {{ SCHEMA._database._name }}
+          schema: {{ SCHEMA._name }}
+          quoting:
+                database: true
+                schema: true
+                identifier: true
+          tables:
+          {% for TABLE in SCHEMA._tables -%}
+                - name: {{ TABLE._name }}
+          {% endfor %}
+
+models:
+{% for TABLE in SCHEMA._tables -%}
+- name: {{ SCHEMA._name }}_{{ TABLE._name }}
+  {% for COLUMN in TABLE if 'ID' in COLUMN._name -%}
+  {% if loop.first %}columns:{% endif %}
+  - name: {{ SCHEMA._name | lower }}__
+          {{- TABLE._name | lower }}__
+          {{- COLUMN._name | lower }}
+    tests:
+    - not_null
+  {% endfor %}
+{% endfor %}
