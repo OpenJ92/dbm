@@ -10,8 +10,9 @@ class TABLE(object):
         self._schema = SCHEMA
         self._name = name
         self._dbt = f'{self._schema._dbt}/base/{self._schema._name}_{self._name}.sql'
-        self._read_dbt()
+        self.read_dbt()
         self._data = data; self._columns = self.construct_columns(); del self._data
+        self.construct_dbt() if self._update else False
 
     def __getitem__(self, item):
         return self._columns[item]
@@ -32,11 +33,11 @@ class TABLE(object):
                 d = [i.replace('"', '').split(' as ') 
                         for i in findall(b1, c.group(1))]
                 self._dbt_conversion = {i[0]: i[1] for i in d}
-        else: 
-            self.construct_dbt()
+        else:
+            self._update = True
 
     def construct_dbt(self):
-        if not exists(self._dbt) or self.update:
+        if not exists(self._dbt) or self._update:
             with open(self._dbt, "w+") as f:
                 template = self._schema._database._env.get_template("object_model.sql")
                 rendered = template.render(TABLE=self)
