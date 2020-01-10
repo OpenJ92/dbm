@@ -13,11 +13,6 @@ class SCHEMA(object):
         self.setup_dbt()
         self._tables = self.construct_tables(); del self._data
         self.construct_dbt()
-        # compare tables read from the information schema to those extracted from
-        # the assosiated dbt file. If there's a table not detected in the 
-        # dbt file, we will raise a flag on that column saying that a new file
-        # should be constructed for that schema.
-
     
     def __getitem__(self, item):
         return self._tables[item]

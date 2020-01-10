@@ -22,6 +22,7 @@ class TABLE(object):
     def read_dbt(self):
         if exists(self._dbt):
             with open(self._dbt) as f:
+                # ticket: semantic rewrite
                 a = f.read()
                 b = compile(r"renamed.* as (?P<cols>\(.*\))", 
                         MULTILINE|DOTALL)
