@@ -6,11 +6,12 @@ from src.OBJECTS.COLUMN import COLUMN
 
 class TABLE(object):
     def __init__(self, SCHEMA, name, data):
+        self._update = False
         self._schema = SCHEMA
         self._name = name
-        self._data = data; self._columns = self.construct_columns(); del self._data
         self._dbt = f'{self._schema._dbt}/base/{self._schema._name}_{self._name}.sql'
-        self.construct_dbt()
+        self._read_dbt()
+        self._data = data; self._columns = self.construct_columns(); del self._data
 
     def __getitem__(self, item):
         return self._columns[item]
@@ -29,10 +30,12 @@ class TABLE(object):
                 c = search(b, a)
                 d = [i.replace('"', '').split(' as ') 
                         for i in findall(b1, c.group(1))]
-                return {i[0]: i[1] for i in d}
+                self._dbt_conversion = {i[0]: i[1] for i in d}
+        else: 
+            self.construct_dbt()
 
     def construct_dbt(self):
-        if not exists(self._dbt):
+        if not exists(self._dbt) or self.update:
             with open(self._dbt, "w+") as f:
                 template = self._schema._database._env.get_template("object_model.sql")
                 rendered = template.render(TABLE=self)
