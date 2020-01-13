@@ -8,6 +8,9 @@ class POLICY(object):
         #   2b. augment object state (execution policy)
         pass
 
+    def apply(self):
+        self.materialize(); self.augment()
+
     def materialize(self):
         # construct the strings to be placed into model.sql or
         # schema.yml file. Store this element as an attribute of
