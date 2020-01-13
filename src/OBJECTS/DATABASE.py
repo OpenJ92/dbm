@@ -14,6 +14,23 @@ class DATABASE(object):
         return self._schemas[item]
 
     def read_policy(self):
+        # what are policy objects and where are they defined? How can 
+        # we have these policy objects interact with the execution of the
+        # jinja templates? As it stands, we pass self into the template and
+        # access, in the case of the model file, the following attributes:
+        #
+        #       - self._schema._database._name
+        #       - self._schema._name
+        #       - self._name
+        #       - self._columns._name
+        #
+        # all of which are string attributes. Therefore, in the construction of
+        # policies, that which follows from those policies should be constructed
+        # or formatted strings or instructions to the objects to skip or embelish.
+        #
+        # To my mind, upon escaping a level in our DFS, all policies should be in place
+        # for that particular object set. I think we should use a flagging system. Then each
+        # object will have execution policies and write policies.
         pass
 
     def construct_schemas(self):
