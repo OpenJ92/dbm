@@ -1,6 +1,7 @@
 from jinja2 import Environment, PackageLoader
 
 from src.OBJECTS.SCHEMA import SCHEMA
+from src.OBJECTS.POLICY import POLICY
 
 class DATABASE(object):
     def __init__(self, CONNECT, dbt='../dbt/models/'):
@@ -29,8 +30,7 @@ class DATABASE(object):
         # or formatted strings or instructions to the objects to skip or embelish.
         #
         # To my mind, upon escaping a level in our DFS, all policies should be in place
-        # for that particular object set. I think we should use a flagging system. Then each
-        # object will have execution policies and write policies.
+        # for that particular object set. 
         pass
 
     def construct_schemas(self):

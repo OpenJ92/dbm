@@ -3,6 +3,7 @@ from os.path import exists
 from re import search, compile, findall, MULTILINE, DOTALL
 
 from src.OBJECTS.COLUMN import COLUMN
+from src.OBJECTS.POLICY import POLICY
 
 class TABLE(object):
     def __init__(self, SCHEMA, name, data):
