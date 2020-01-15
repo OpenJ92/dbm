@@ -10,30 +10,17 @@ class SCHEMA(object):
         self._database = DATABASE
         self._name = name
         self._data = data
-        self._policy = self.read_policy()
-        self._dbt = f'{self._database._dbt}{self._database._name}_{self._name}'
-        self.setup_dbt()
+        self._dir = f'{self._database._name}/{self._name}'
+        self.check_existance()
         self._tables = self.construct_tables(); del self._data
-        self.construct_dbt()
     
     def __getitem__(self, item):
         return self._tables[item]
 
-    def read_policy(self):
-        pass
-
-    def setup_dbt(self):
-        if not exists(self._dbt):
-            mkdir(f'{self._dbt}/')
-            mkdir(f'{self._dbt}/base/')
-            mkdir(f'{self._dbt}/transformed/')
-
-    def construct_dbt(self):
-        if not exists(f'{self._dbt}/base/schema.yml'):
-            with open(f'{self._dbt}/base/schema.yml', 'w+') as f:
-                template = self._database._env.get_template("object_schema.yml")
-                rendered = template.render(SCHEMA=self)
-                f.write(rendered)
+    def check_existance(self):
+        if not exists(self._dir):
+            self._update = True
+            mkdir(f'{self._dir}/')
 
     def construct_tables(self):
         unique_tables = self._data['TABLE_NAME'].unique()
