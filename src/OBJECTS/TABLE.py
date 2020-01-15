@@ -39,6 +39,7 @@ class TABLE(object):
 
     def construct_dbt(self):
         if not exists(self._dbt) or self._update:
+            self._schema._update = True
             with open(self._dbt, "w+") as f:
                 template = self._schema._database._env.get_template("object_model.sql")
                 rendered = template.render(TABLE=self)

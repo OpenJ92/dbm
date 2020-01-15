@@ -6,6 +6,7 @@ from src.OBJECTS.POLICY import POLICY
 
 class SCHEMA(object):
     def __init__(self, DATABASE, name, data):
+        self._update = False
         self._database = DATABASE
         self._name = name
         self._data = data
@@ -46,4 +47,3 @@ class SCHEMA(object):
                       )
                 for table in unique_tables
                ]
-
