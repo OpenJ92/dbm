@@ -1,3 +1,5 @@
+from os import mkdir
+from os.path import exists, expanduser
 from jinja2 import Environment, PackageLoader
 
 from src.OBJECTS.SCHEMA import SCHEMA
@@ -8,7 +10,9 @@ class DATABASE(object):
         self._update = False
         self._name = CONNECT.name
         self._data = CONNECT._extract('select * from columns;')
-        self._dir = f"./{self._name}"
+        # note to self. Replace dotfile with S3 bucket
+        self._dir = f"{expanduser('~')}/.scd/{self._name}"
+        self.check_existance()
         self._env = Environment(loader=PackageLoader('src', 'TEMPLATES'))
         self._schemas = self.construct_schemas(); del self._data
 

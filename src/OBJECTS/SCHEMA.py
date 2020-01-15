@@ -10,7 +10,7 @@ class SCHEMA(object):
         self._database = DATABASE
         self._name = name
         self._data = data
-        self._dir = f'{self._database._name}/{self._name}'
+        self._dir = f'{self._database._dir}/{self._name}'
         self.check_existance()
         self._tables = self.construct_tables(); del self._data
     
@@ -20,7 +20,7 @@ class SCHEMA(object):
     def check_existance(self):
         if not exists(self._dir):
             self._update = True
-            mkdir(f'{self._dir}/')
+            mkdir(f'{self._dir}')
 
     def construct_tables(self):
         unique_tables = self._data['TABLE_NAME'].unique()

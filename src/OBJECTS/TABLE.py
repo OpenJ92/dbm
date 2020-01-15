@@ -9,7 +9,8 @@ class TABLE(object):
         self._update = False
         self._schema = SCHEMA
         self._name = name
-        self._dir = f'{self._schema._database._name}/{self._schema._name}/{self._name}.data'
+        self._dir = f'{self._schema._dir}/{self._name}.data'
+        self.read_data = self._read_data()
         self._data = data; self._columns = self.construct_columns(); del self._data
         self.construct_dir() if self._update else False
 
@@ -23,10 +24,13 @@ class TABLE(object):
                 template = self._schema._database._env.get_template('template.data')
                 rendered = template.render(TABLE=self)
                 f.write(rendered)
-                # Make .data file template
 
-    def read_data(self):
-        pass
+    def _read_data(self):
+        if exists(self._dir):
+            with open(self._dir) as f:
+                return f.readlines()
+        else:
+            return [] 
 
     def construct_columns(self):
         unique_columns = self._data['COLUMN_NAME'].unique()

@@ -13,7 +13,7 @@ class COLUMN(object):
         return f"""COLUMN(name={self._name},table={self._table._name},schema={self._table._schema._name})"""
 
     def check_existance(self):
-        if self._name not in self._table._read_data
+        if f"{self._name}\n" not in self._table.read_data:
             self._table._update = True
             print(self)
 
