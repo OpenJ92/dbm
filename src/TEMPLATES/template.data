@@ -1,0 +1,3 @@
+{% for COLUMN in TABLE._columns -%}
+{{ COLUMN._name }}
+{% endfor %}
