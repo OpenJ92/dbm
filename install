@@ -7,5 +7,3 @@
 # initialize conda for /bin/zsh; create conda env scd
 # conda install requirements.txt 
 # edit crontab file to run every 6 hours
-
-
