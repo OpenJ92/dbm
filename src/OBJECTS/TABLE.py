@@ -7,7 +7,7 @@ class TABLE(object):
     def __init__(self, SCHEMA, name, data):
         """
         __init__(self, SCHEMA, name, data):
-            DATABASE::src.OBJECTS.SCHEMA.SCHEMA - schema object defined
+            SCHEMA::src.OBJECTS.SCHEMA.SCHEMA - schema object defined
             ---@ scd/src/OBJECTS/SCHEMA
             name::string
             data::pandas.DataFrame - Filtered data queried from src.CONNECT object
