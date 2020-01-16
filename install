@@ -1,9 +1,16 @@
 #!/bin/zsh
 
 # create .scd directory and instruct user to fill out config.yml
-# create ~/bin if does not exist and curl execution file
+mkdir ~/.scd; mkdir ~/.scd/RAW; touch .scd/config.yml
+
+# add scd executable to usr/local/bin
+mv ${pwd}/scd /usr/local/bin/scd; chmod u+x usr/local/bin/scd
 
 # install conda if it doesn't exist on system
+if [ type conda &> dev/null ]
+then
+	#install conda
+else
 # initialize conda for /bin/zsh; create conda env scd
 # conda install requirements.txt 
 # edit crontab file to run every 6 hours

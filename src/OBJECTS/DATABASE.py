@@ -7,6 +7,22 @@ from src.OBJECTS.SCHEMA import SCHEMA
 
 class DATABASE(object):
     def __init__(self, CONNECT):
+        """
+        __init__(self):
+        CONNECT::src.CONNECT - connect object defined @ scd/src/CONNECT
+
+        attributes:
+        _update::bool - Update flag
+        _name::string - Database name
+        _data::pandas.DataFrame - Data queried from src.CONNECT object
+        _time::string - Time of execution for log name
+        _dir::string - Location to map database to.
+        _log_dir::string - Location to output unseen columns
+        _env::jinja2.environment.Environment - template manager
+        _schemas::list - list of src.OBJECT.SCHEMA objects
+
+        function: 
+        """
         self._update = False
         self._name = CONNECT.name
         self._data = CONNECT._extract('select * from columns;')
@@ -19,9 +35,29 @@ class DATABASE(object):
         self._write_change_file()
 
     def __getitem__(self, item):
+        """
+        __getitem__(self, item)
+        item::int
+
+        function: Afford src.OBJECT.DATABASE.DATABASE itterable
+            behaviors for use in loops.
+
+        returns - src.OBJECT.SCHEMA.SCHEMA
+        """
         return self._schemas[item]
 
     def _write_change_file(self):
+        """
+        _write_change_file(self):
+
+        function - Checks the existance of _log_directory. If it
+            does not exist, We then construct that file and write
+            the contents of the rendered template to that file. 
+            See jinja2 src.TEMPLATES.data.change or jinja2 docs
+            for more information. If it does exist, do nothing.
+
+        returns - None
+        """
         if not exists(self._log_dir):
             with open(self._log_dir, "w+") as f:
                 template = self._env.get_template('data.change')
@@ -29,11 +65,27 @@ class DATABASE(object):
                 f.write(rendered)
 
     def check_existance(self):
+        """
+        check_existance(self):
+
+        function: If the expected coresponding directory does not 
+            exist, Update instance _update variable to True and 
+            construct said coresponding directory.
+        """
         if not exists(self._dir):
             self._update = True
             mkdir(f'{self._dir}/')
 
     def construct_schemas(self):
+        """
+        construct_schemas(self)
+
+        function: find the unique SCHEMA names in the connected 
+            DATABASE and instanciate src.OBJECTS.SCHEMA.SCHEMA
+            objects for each of those names. See src.OBJECTS.\
+            SCHEMA.SCHEMA for further details.
+
+        """
         unique_schema = self._data['TABLE_SCHEMA'].unique()
         return [                                                        
                  SCHEMA(                                                
