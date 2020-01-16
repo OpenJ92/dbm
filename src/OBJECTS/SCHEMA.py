@@ -14,7 +14,8 @@ class SCHEMA(object):
 
         attributes:
             _update::bool - Update flag
-            _name::string - Database name
+            _database::src.OBJECTS.DATABASE.DATABASE 
+            _name::string - Schema name
             _data::pandas.DataFrame - Filtered data queried from src.CONNECT object
             _dir::string - Location to map schema to.
             _tables::list - list of src.OBJECT.TABLE objects
