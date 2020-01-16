@@ -2,6 +2,7 @@
 
 # create .scd directory and instruct user to fill out config.yml
 # create ~/bin if does not exist and curl execution file
+
 # install conda if it doesn't exist on system
 # initialize conda for /bin/zsh; create conda env scd
 # conda install requirements.txt 
