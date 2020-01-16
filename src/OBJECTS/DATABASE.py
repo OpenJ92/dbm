@@ -21,7 +21,10 @@ class DATABASE(object):
         _env::jinja2.environment.Environment - template manager
         _schemas::list - list of src.OBJECT.SCHEMA objects
 
-        function: 
+        function: Attribute nessesary state to src.OBJECT.DATABASE.DATABASE
+            object and check the existance of such a database in currently stored
+            images. Once DFS of database objects is complete, write a change file
+            to self._log_dir
         """
         self._update = False
         self._name = CONNECT.name
