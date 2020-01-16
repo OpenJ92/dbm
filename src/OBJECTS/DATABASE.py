@@ -9,22 +9,22 @@ class DATABASE(object):
     def __init__(self, CONNECT):
         """
         __init__(self):
-        CONNECT::src.CONNECT - connect object defined @ scd/src/CONNECT
+            CONNECT::src.CONNECT - connect object defined @ scd/src/CONNECT
 
         attributes:
-        _update::bool - Update flag
-        _name::string - Database name
-        _data::pandas.DataFrame - Data queried from src.CONNECT object
-        _time::string - Time of execution for log name
-        _dir::string - Location to map database to.
-        _log_dir::string - Location to output unseen columns
-        _env::jinja2.environment.Environment - template manager
-        _schemas::list - list of src.OBJECT.SCHEMA objects
+            _update::bool - Update flag
+            _name::string - Database name
+            _data::pandas.DataFrame - Data queried from src.CONNECT object
+            _time::string - Time of execution for log name
+            _dir::string - Location to map database to.
+            _log_dir::string - Location to output unseen columns
+            _env::jinja2.environment.Environment - template manager
+            _schemas::list - list of src.OBJECT.SCHEMA objects
 
         function: Attribute nessesary state to src.OBJECT.DATABASE.DATABASE
-            object and check the existance of such a database in currently stored
-            images. Once DFS of database objects is complete, write a change file
-            to self._log_dir
+            object, check the existance of such a database in currently stored
+            images and construct src.OBJECT.SCHEMA.SCHEMA objects. Once DFS of 
+            database objects is complete, write a change file to self._log_dir
         """
         self._update = False
         self._name = CONNECT.name
