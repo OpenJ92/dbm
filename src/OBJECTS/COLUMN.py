@@ -13,9 +13,11 @@ class COLUMN(object):
         return f"""COLUMN(name={self._name},table={self._table._name},schema={self._table._schema._name})"""
 
     def check_existance(self):
-        if f"{self._name}\n" not in self._table.read_data:
+        if self._table._update == True or \
+                f"{self._name}\n" not in self._table.read_data:
             self._table._update = True
-            print(self)
+            self._update = True
+            print(self._update, self)
 
     def reform_data(self, data):
         return {key : value for key, value in data.iloc[0].items()}

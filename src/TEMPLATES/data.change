@@ -1,0 +1,10 @@
+DATABASE.SCHEMA.TABLE.COLUMN - {{ DATABASE._time }}
+{% for SCHEMA in DATABASE -%}
+{% for TABLE in SCHEMA -%}
+{% for COLUMN in TABLE -%}
+{% if COLUMN._update == True -%}
+{{DATABASE._name}}.{{SCHEMA._name}}.{{TABLE._name}}.{{COLUMN._name}}
+{% endif %}
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}
