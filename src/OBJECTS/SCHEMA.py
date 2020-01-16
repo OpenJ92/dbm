@@ -2,7 +2,6 @@ from os import mkdir
 from os.path import exists
 
 from src.OBJECTS.TABLE import TABLE
-from src.OBJECTS.POLICY import POLICY
 
 class SCHEMA(object):
     def __init__(self, DATABASE, name, data):
