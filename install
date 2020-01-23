@@ -1,7 +1,8 @@
 #!/bin/zsh
 
 # create .scd directory and instruct user to fill out config.yml
-mkdir ~/.scd; mkdir ~/.scd/RAW; touch .scd/config.yml
+mkdir ~/.scd; mkdir ~/.scd/RAW; touch .scd/config.yml;
+touch ~/.zshrc
 
 # add scd executable to usr/local/bin
 mv ${pwd}/scd /usr/local/bin/scd; chmod u+x usr/local/bin/scd
