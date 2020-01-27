@@ -38,9 +38,7 @@ class COLUMN(object):
         return self._data[item]
 
     def __repr__(self):
-        return f"""COLUMN(name={self._name},\
-                table={self._table._name},\
-                schema={self._table._schema._name})"""
+        return f"""COLUMN(name={self._name}, table={self._table._name}, schema={self._table._schema._name})"""
 
     def check_existance(self):
         """
@@ -52,11 +50,9 @@ class COLUMN(object):
 
         returns - None
         """
-        if self._table._update == True or \
-                f"{self._name}\n" not in self._table.read_data:
-            self._table._update = True
+        if f"{self._name}\n" not in self._table.read_data:
             self._update = True
-            print(self._update, self)
+            print(self)
 
     def reform_data(self, data):
         """

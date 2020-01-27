@@ -32,13 +32,12 @@ class TABLE(object):
 
         returns - self
         """
-        self._update = False
         self._schema = SCHEMA
         self._name = name
         self._dir = f'{self._schema._dir}/{self._name}.data'
         self.read_data = self._read_data()
         self._data = data; self._columns = self.construct_columns(); del self._data
-        self.construct_dir() if self._update else False
+        self.construct_dir()
 
     def __getitem__(self, item):
         """
@@ -66,8 +65,7 @@ class TABLE(object):
 
         returns - None
         """
-        if not exists(self._dir) or self._update:
-            self._schema._update = True
+        if not exists(self._dir) or True in [col._update for col in self._columns]:
             with open(self._dir, "w+") as f:
                 template = self._schema._database._env.get_template('template.data')
                 rendered = template.render(TABLE=self)

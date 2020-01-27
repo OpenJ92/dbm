@@ -12,7 +12,6 @@ class DATABASE(object):
             CONNECT::src.CONNECT - connect object defined @ scd/src/CONNECT
 
         attributes:
-            _update::bool - Update flag
             _name::string - Database name
             _data::pandas.DataFrame - Data queried from src.CONNECT object
             _time::string - Time of execution for log name
@@ -26,7 +25,6 @@ class DATABASE(object):
             images and construct src.OBJECT.SCHEMA.SCHEMA objects. Once DFS of 
             database objects is complete, write a change file to self._log_dir
         """
-        self._update = False
         self._name = CONNECT.name
         self._data = CONNECT._extract('select * from columns;')
         self._time = strftime("%Y%m%d-%H%M%S")
@@ -76,7 +74,6 @@ class DATABASE(object):
             construct said coresponding directory.
         """
         if not exists(self._dir):
-            self._update = True
             mkdir(f'{self._dir}/')
 
     def construct_schemas(self):

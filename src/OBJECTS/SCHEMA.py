@@ -53,7 +53,6 @@ class SCHEMA(object):
             construct said coresponding directory.
         """
         if not exists(self._dir):
-            self._update = True
             mkdir(f'{self._dir}')
 
     def construct_tables(self):
