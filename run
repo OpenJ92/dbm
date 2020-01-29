@@ -3,9 +3,10 @@ cd ~/Knotel/scd; source ~/.zshrc;
 conda activate scd; ipython __main__.py; conda deactivate
 if [ -s ~/tmp/.scd/data.change ]
 then
-	cat ~/tmp/.scd/data.change | mail -s "$(date +%d-%m-%y-%H-%M-%S)" jvartulischonberg@knotel.com
-	#cat /tmp/.scd/data.change | mail -s "$(date +%d.%m.%y-%H:%M:%S)" sharchwani@knotel.com
-	#cat /tmp/.scd/data.change | mail -s "$(date +%d.%m.%y-%H:%M:%S)" dkim@knotel.com
-	#cat /tmp/.scd/data.change | mail -s "$(date +%d.%m.%y-%H:%M:%S)" pleiser@knotel.com
+	cat  ~/.scd/mail | while read email || [ -n $email ]
+	do
+		echo $email
+		cat ~/tmp/.scd/data.change | mail -s "$(date +%d-%m-%y-%H-%M-%S)" email
+	done
 fi
 mv ~/tmp/.scd/data.change ~/.scd/logs/RAW/$(date +%d-%m-%y-%H-%M-%S).data.change
