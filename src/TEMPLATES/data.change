@@ -1,6 +1,8 @@
-DATABASE.SCHEMA.TABLE.COLUMN - {{ DATABASE._time }}
+{{DATABASE._name}}._._._
 {% for SCHEMA in DATABASE -%}
+_.{{SCHEMA._name}}._._
 {% for TABLE in SCHEMA -%}
+_._.{{TABLE._name}}._
 {% for COLUMN in TABLE -%}
 {% if COLUMN._update == True -%}
 {{DATABASE._name}}.{{SCHEMA._name}}.{{TABLE._name}}.{{COLUMN._name}}

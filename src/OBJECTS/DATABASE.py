@@ -29,7 +29,7 @@ class DATABASE(object):
         self._data = CONNECT._extract('select * from columns;')
         self._time = strftime("%Y%m%d-%H%M%S")
         self._dir = f"{expanduser('~')}/.scd/{self._name}"
-        self._log_dir = f"{expanduser('~')}/.scd/logs/{self._name}/{self._time}"
+        self._log_dir = f"{expanduser('~')}/tmp/.scd/data.change"
         self.check_existance()
         self._env = Environment(loader=PackageLoader('src', 'TEMPLATES'))
         self._schemas = self.construct_schemas(); del self._data
