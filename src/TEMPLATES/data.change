@@ -1,11 +1,20 @@
-{{DATABASE._name}}._._._
+{% if DATABASE._update == True -%}
+CHANGES -- Test run -- Let me know what you think of the format
+| {{DATABASE._name}}
+{% endif -%}
 {% for SCHEMA in DATABASE -%}
-_.{{SCHEMA._name}}._._
+{% if SCHEMA._update == True -%}
+| -----
+| ----- {{SCHEMA._name}}
+{% endif -%}
 {% for TABLE in SCHEMA -%}
-_._.{{TABLE._name}}._
+{% if TABLE._update == True -%}
+| -------------
+| ------------- {{TABLE._name}} 
+{% endif -%}
 {% for COLUMN in TABLE -%}
 {% if COLUMN._update == True -%}
-{{DATABASE._name}}.{{SCHEMA._name}}.{{TABLE._name}}.{{COLUMN._name}}
+| +++++++++++++++++++++ {{COLUMN._name}}
 {% endif %}
 {%- endfor %}
 {%- endfor %}

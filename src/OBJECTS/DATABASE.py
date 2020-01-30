@@ -25,6 +25,7 @@ class DATABASE(object):
             images and construct src.OBJECT.SCHEMA.SCHEMA objects. Once DFS of 
             database objects is complete, write a change file to self._log_dir
         """
+        self._update = False
         self._name = CONNECT.name
         self._data = CONNECT._extract('select * from columns;')
         self._time = strftime("%Y%m%d-%H%M%S")

@@ -6,7 +6,8 @@ then
 	cat  ~/.scd/mail | while read email || [ -n $email ]
 	do
 		echo $email
-		cat ~/tmp/.scd/data.change | mail -s "$(date +%d-%m-%y-%H-%M-%S)" email
+		cat ~/tmp/.scd/data.change | mail -s "$(date +%d-%m-%y-%H-%M-%S)" $email
 	done
 fi
 mv ~/tmp/.scd/data.change ~/.scd/logs/RAW/$(date +%d-%m-%y-%H-%M-%S).data.change
+exit

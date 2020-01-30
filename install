@@ -17,3 +17,5 @@ else
 # edit crontab file to run every 6 hours
 
 # set up mail for user.
+# set up ~/tmp if not exist
+exit

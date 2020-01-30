@@ -32,6 +32,7 @@ class TABLE(object):
 
         returns - self
         """
+        self._update = False
         self._schema = SCHEMA
         self._name = name
         self._dir = f'{self._schema._dir}/{self._name}.data'

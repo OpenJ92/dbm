@@ -51,6 +51,9 @@ class COLUMN(object):
         returns - None
         """
         if f"{self._name}\n" not in self._table.read_data:
+            self._table._schema._database._update = True
+            self._table._schema._update = True
+            self._table._update = True
             self._update = True
             print(self)
 
