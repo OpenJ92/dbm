@@ -1,4 +1,10 @@
+
 # DATABASE.py
+from time import strftime
+from os import mkdir
+from os.path import exists, expanduser
+from jinja2 import Environment, PackageLoader
+
         self._update = False
         self._time = strftime("%Y%m%d-%H%M%S")
         self._dir = f"{expanduser('~')}/.scd/{self._name}"
@@ -37,6 +43,9 @@
             mkdir(f'{self._dir}/')
 
 # SCHEMA.py
+from os import mkdir
+from os.path import exists
+
         self._update = False
         self._dir = f'{self._database._dir}/{self._name}'
         self.check_existance()
@@ -53,6 +62,9 @@
             mkdir(f'{self._dir}')
 
 # TABLE.py
+from os.path import exists
+from re import search, compile, findall, MULTILINE, DOTALL
+
         self._update = False
         self._dir = f'{self._schema._dir}/{self._name}.data'
         self.read_data = self._read_data()
