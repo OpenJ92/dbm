@@ -24,12 +24,9 @@ class SCHEMA(object):
             object, check the existance of such a schem a in currently stored
             images, and construct src.OBJECTS.TABLE.TABLE objects.
         """
-        self._update = False
         self._database = DATABASE
         self._name = name
         self._data = data
-        self._dir = f'{self._database._dir}/{self._name}'
-        self.check_existance()
         self._tables = self.construct_tables(); del self._data
     
     def __getitem__(self, item):
@@ -43,17 +40,6 @@ class SCHEMA(object):
         returns - src.OBJECT.SCHEMA.SCHEMA
         """
         return self._tables[item]
-
-    def check_existance(self):
-        """
-        check_existance(self):
-
-        function: If the expected coresponding directory does not 
-            exist, Update instance _update variable to True and 
-            construct said coresponding directory.
-        """
-        if not exists(self._dir):
-            mkdir(f'{self._dir}')
 
     def construct_tables(self):
         """

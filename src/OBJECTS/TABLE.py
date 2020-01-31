@@ -32,13 +32,9 @@ class TABLE(object):
 
         returns - self
         """
-        self._update = False
         self._schema = SCHEMA
         self._name = name
-        self._dir = f'{self._schema._dir}/{self._name}.data'
-        self.read_data = self._read_data()
         self._data = data; self._columns = self.construct_columns(); del self._data
-        self.construct_dir()
 
     def __getitem__(self, item):
         """
@@ -51,42 +47,6 @@ class TABLE(object):
         returns - src.OBJECT.SCHEMA.SCHEMA
         """
         return self._columns[item]
-
-    def construct_dir(self):
-        """
-        construct_dir(self):
-
-        function: check to see if table file exists in the image or
-            if a column triggered the _update attribute to flip. If
-            either condition is met, set schema _update attribute to
-            true and write that file and write the contents of the 
-            rendered template to that file. See jinja2 src.TEMPLATES.\
-            data.change or jinja2 docs for more information. If it does 
-            exist or we're not to update, do nothing.
-
-        returns - None
-        """
-        if not exists(self._dir) or True in [col._update for col in self._columns]:
-            with open(self._dir, "w+") as f:
-                template = self._schema._database._env.get_template('template.data')
-                rendered = template.render(TABLE=self)
-                f.write(rendered)
-
-    def _read_data(self):
-        """
-        _read_data(self):
-
-        function: if the expected table file, self._dir, exists, open that
-            file in read only and extract it's text line by line. Otherwise,
-            we return the empty list.
-
-        returns - list
-        """
-        if exists(self._dir):
-            with open(self._dir) as f:
-                return f.readlines()
-        else:
-            return [] 
 
     def construct_columns(self):
         """

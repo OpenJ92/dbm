@@ -25,16 +25,9 @@ class DATABASE(object):
             images and construct src.OBJECT.SCHEMA.SCHEMA objects. Once DFS of 
             database objects is complete, write a change file to self._log_dir
         """
-        self._update = False
         self._name = CONNECT.name
         self._data = CONNECT._extract('select * from columns;')
-        self._time = strftime("%Y%m%d-%H%M%S")
-        self._dir = f"{expanduser('~')}/.scd/{self._name}"
-        self._log_dir = f"{expanduser('~')}/tmp/.scd/data.change"
-        self.check_existance()
-        self._env = Environment(loader=PackageLoader('src', 'TEMPLATES'))
         self._schemas = self.construct_schemas(); del self._data
-        self._write_change_file()
 
     def __getitem__(self, item):
         """
@@ -47,36 +40,6 @@ class DATABASE(object):
         returns - src.OBJECT.SCHEMA.SCHEMA
         """
         return self._schemas[item]
-
-    def _write_change_file(self):
-        """
-        _write_change_file(self):
-
-        function - Checks the existance of _log_directory. If it
-            does not exist, We then construct that file and write
-            the contents of the rendered template to that file. 
-            See jinja2 src.TEMPLATES.data.change or jinja2 docs
-            for more information. If it does exist, do nothing.
-
-        returns - None
-        """
-        if not exists(self._log_dir):
-            with open(self._log_dir, "w+") as f:
-                template = self._env.get_template('data.change')
-                rendered = template.render(DATABASE=self)
-                f.write(rendered)
-
-    def check_existance(self):
-        """
-        check_existance(self):
-
-        function: If the expected coresponding directory does not 
-            exist, Update instance _update variable to True and 
-            construct said coresponding directory.
-        """
-        if not exists(self._dir):
-            mkdir(f'{self._dir}/')
-
     def construct_schemas(self):
         """
         construct_schemas(self)

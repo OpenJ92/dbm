@@ -19,11 +19,9 @@ class COLUMN(object):
             images, and update coresponding tables _update attribute if it 
             does not exist.
         """
-        self._update = False
         self._table = TABLE
         self._name = name
         self._data = self.reform_data(data)
-        self.check_existance()
 
     def __getitem__(self, item):
         """
@@ -39,23 +37,6 @@ class COLUMN(object):
 
     def __repr__(self):
         return f"""COLUMN(name={self._name}, table={self._table._name}, schema={self._table._schema._name})"""
-
-    def check_existance(self):
-        """
-        check_existance(self)
-
-        function: If table needs to be updated or column name is not
-            in the existing database image, update the table and column
-            _update parameter. 
-
-        returns - None
-        """
-        if f"{self._name}\n" not in self._table.read_data:
-            self._table._schema._database._update = True
-            self._table._schema._update = True
-            self._table._update = True
-            self._update = True
-            print(self)
 
     def reform_data(self, data):
         """
