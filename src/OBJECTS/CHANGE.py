@@ -31,6 +31,12 @@ class CHANGE(object):
                         'COLUMN'  : cls.COLUMN
                     }
 
-    def __init__(OBJECT, WHERE):
+    def __init__(OBJECT, WHERE=None, HOW=None):
         self = cls.CONSTRUCTORS[OBJECT.__class__.__name__](OBJECT)
+
+    def _existance(self):
+        pass
+
+    def _read(self):
+        pass
 
