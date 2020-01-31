@@ -1,5 +1,5 @@
 {% if DATABASE._update == True -%}
-CHANGES -- Test run -- Let me know what you think of the format
+CHANGES
 | {{DATABASE._name}}
 {% endif -%}
 {% for SCHEMA in DATABASE -%}

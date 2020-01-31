@@ -1,13 +1,12 @@
 #!/bin/zsh
-cd ~/Knotel/scd; source ~/.zshrc; 
+cd ~/Knotel/scd; source ~/.zshrc; git checkout master; 
 conda activate scd; ipython __main__.py; conda deactivate
 if [ -s ~/tmp/.scd/data.change ]
 then
-	cat  ~/.scd/mail | while read email || [ -n $email ]
-	do
-		echo $email
-		cat ~/tmp/.scd/data.change | mail -s "$(date +%d-%m-%y-%H-%M-%S)" $email
-	done
+	cat ~/tmp/.scd/data.change | mail -s "$(date +%d-%m-%y-%H-%M-%S)" \
+	jvartulischonberg@knotel.com,\
+	sharchwani@knotel.com,\
+	dkim@knotel.com,\
+	pleiser@knotel.com
 fi
 mv ~/tmp/.scd/data.change ~/.scd/logs/RAW/$(date +%d-%m-%y-%H-%M-%S).data.change
-exit
