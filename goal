@@ -1,3 +1,0 @@
-Separate checks and writes from database model. Look to have CHECK
-be a Unary opperator on DATABASE tree.
-
