@@ -1,27 +1,36 @@
 class CHANGE(object):
     @classmethod
     def DATABASE(cls, OBJECT):
-        return cls(OBJECT)
+        WHERE = f"{expanduser('~')}/.scd/"
+        return cls(OBJECT, WHERE)
 
     @classmethod
     def SCHEMA(cls, OBJECT):
-        return cls(OBJECT)
+        WHERE = f"{expanduser('~')}/.scd/{OBJECT._database._name}/"
+        return cls(OBJECT, WHERE)
 
     @classmethod
     def TABLE(cls, OBJECT):
-        return cls(OBJECT)
+        WHERE = f"{expanduser('~')}/.scd/{OBJECT._schema._database._name}/\
+                                         {OBJECT._schema._name}"
+        return cls(OBJECT, WHERE)
 
     @classmethod
     def COLUMN(cls, OBJECT):
-        return cls(OBJECT)
+        WHERE = f"{expanduser('~')}/.scd/{OBJECT._table._schema._database._name}/\
+                                         {OBJECT._table._schema._name}/\
+                                         {OBJECT._table._name}.data"
+        # CHECK = check fuction??
+        return cls(OBJECT, WHERE)
 
-    constructors = {
+    LOG_DIR = f"{expanduser('~')}/tmp/.scd/data.change"
+    CONSTRUCTORS = {
                         'DATABASE': cls.DATABASE,
                         'SCHEMA'  : cls.SCHEMA,
                         'TABLE'   : cls.TABLE,
                         'COLUMN'  : cls.COLUMN
                     }
 
-    def __init__(OBJECT):
-        self = cls.constructors[OBJECT.__class__.__name__](OBJECT)
+    def __init__(OBJECT, WHERE):
+        self = cls.CONSTRUCTORS[OBJECT.__class__.__name__](OBJECT)
 
