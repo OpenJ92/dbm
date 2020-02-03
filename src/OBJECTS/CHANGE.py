@@ -1,3 +1,6 @@
+from os.path import exists
+from os import mkdir, listdir
+
 class CHANGE(object):
     @classmethod
     def DATABASE(cls, OBJECT):
