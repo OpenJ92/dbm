@@ -1,5 +1,4 @@
-from src.OBJECTS.SCHEMA import SCHEMA
-
+from src.OBJECTS.SCHEMA import SCHEMA 
 class DATABASE(object):
     def __init__(self, CONNECT):
         """
