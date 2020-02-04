@@ -1,7 +1,7 @@
 from src.OBJECTS.DATABASE.TABLE import TABLE
 
 class SCHEMA(object):
-    def __init__(self, DATABASE, name, data):
+    def __init__(self, DATABASE, name, data, ACTION = []):
         """
         __init__(self, DATABASE, name, data):
             DATABASE::src.OBJECTS.DATABASE.DATABASE - database object defined
@@ -25,6 +25,7 @@ class SCHEMA(object):
         self._name = name
         self._data = data
         self._children = self.construct_children(); del self._data
+        # [action(self).__act__() for action in ACTION]
     
     def __getitem__(self, item):
         """
