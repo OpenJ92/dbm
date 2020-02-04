@@ -22,8 +22,9 @@ class DATABASE(object):
         """
         self._name = CONNECT.name
         self._data = CONNECT._extract('select * from columns;')
+        self._ACTION = ACTION
+        self._actions = [action(self).O().__act__() for action in ACTION]
         self._children = self.construct_children(); del self._data
-        # [action(self).__act__() for action in ACTION]
 
     def __getitem__(self, item):
         """
@@ -53,7 +54,8 @@ class DATABASE(object):
                         schema,                                         
                         self._data[
                             self._data['TABLE_SCHEMA'] == schema
-                                  ]
+                                  ],
+                        self._ACTION
                         )                                               
                  for schema in unique_schema                            
                ]

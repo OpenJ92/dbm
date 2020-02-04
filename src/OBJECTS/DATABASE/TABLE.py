@@ -2,7 +2,7 @@
 from src.OBJECTS.DATABASE.COLUMN import COLUMN
 
 class TABLE(object):
-    def __init__(self, SCHEMA, name, data):
+    def __init__(self, SCHEMA, name, data, ACTION = []):
         """
         __init__(self, SCHEMA, name, data):
             SCHEMA::src.OBJECTS.SCHEMA.SCHEMA - schema object defined
@@ -32,7 +32,10 @@ class TABLE(object):
         """
         self._parent = SCHEMA
         self._name = name
+        self._ACTION = ACTION
+        self._actions = [action(self).O().__act__() for action in ACTION]
         self._data = data; self._children = self.construct_children(); del self._data
+        # [action(self).__act__() for action in ACTION]
 
     def __getitem__(self, item):
         """
@@ -63,7 +66,8 @@ class TABLE(object):
                         column,
                         self._data[
                             self._data['COLUMN_NAME'] == column
-                                  ]
+                                  ],
+                        self._ACTION
                        )
                 for column in unique_children
                ]
