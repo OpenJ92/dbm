@@ -22,7 +22,7 @@ class CHANGE(object):
     def COLUMN(cls, OBJECT):
         WHERE = f"{expanduser('~')}/.scd/{OBJECT._table._schema._database._name}/\
                                          {OBJECT._table._schema._name}/\
-                                         {OBJECT._table._name}.data"
+                                         {OBJECT._table._name}"
         # CHECK = check fuction??
         return cls(OBJECT, WHERE)
 
