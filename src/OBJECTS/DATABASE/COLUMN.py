@@ -19,7 +19,7 @@ class COLUMN(object):
             images, and update coresponding tables _update attribute if it 
             does not exist.
         """
-        self._table = TABLE
+        self._parent = TABLE
         self._name = name
         self._data = self.reform_data(data)
 
