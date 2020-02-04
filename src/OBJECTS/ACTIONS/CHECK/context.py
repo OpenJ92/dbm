@@ -18,4 +18,4 @@ class CHECK(object):
         __import__('pdb').set_trace()
 
     def __act__(self):
-        pass
+        self._produce.__act__()
