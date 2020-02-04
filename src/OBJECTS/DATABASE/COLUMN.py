@@ -21,6 +21,8 @@ class COLUMN(object):
         """
         self._parent = TABLE
         self._name = name
+        self._ACTION = ACTION
+        self._actions = [action(self).O().__act__() for action in ACTION]
         self._data = self.reform_data(data)
         # [action(self).__act__() for action in ACTION]
 

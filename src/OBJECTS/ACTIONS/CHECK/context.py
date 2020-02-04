@@ -1,7 +1,7 @@
-from DATABASE_CHECK import DATABASE_CHECK
-from SCHEMA_CHECK import SCHEMA_CHECK
-from TABLE_CHECK import TABLE_CHECK
-from COLUMN_CHECK import COLUMN_CHECK
+from src.OBJECTS.ACTIONS.CHECK.DATABASE_CHECK import DATABASE_CHECK
+from src.OBJECTS.ACTIONS.CHECK.SCHEMA_CHECK import SCHEMA_CHECK
+from src.OBJECTS.ACTIONS.CHECK.TABLE_CHECK import TABLE_CHECK
+from src.OBJECTS.ACTIONS.CHECK.COLUMN_CHECK import COLUMN_CHECK
 
 class CHECK(object):
     manage = {
@@ -12,10 +12,7 @@ class CHECK(object):
              }
     
     def __init__(self, OBJECT):
-        self._produce = cls.manage[OBJECT.__class__.__name__](OBJECT)
-        __import__('pdb').set_trace()
-        self = self._produce
-        __import__('pdb').set_trace()
+        self.__bop__ = self.__class__.manage[OBJECT.__class__.__name__](OBJECT)
 
-    def __act__(self):
-        self._produce.__act__()
+    def O(self):
+        return self.__bop__
