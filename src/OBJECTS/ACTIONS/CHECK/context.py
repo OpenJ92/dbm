@@ -4,6 +4,7 @@ from src.OBJECTS.ACTIONS.CHECK.TABLE_CHECK import TABLE_CHECK
 from src.OBJECTS.ACTIONS.CHECK.COLUMN_CHECK import COLUMN_CHECK
 
 class CHECK(object):
+    nodes = []
     manage = {
                 'DATABASE'  :   DATABASE_CHECK  ,
                 'SCHEMA'    :   SCHEMA_CHECK    ,
@@ -13,6 +14,7 @@ class CHECK(object):
     
     def __init__(self, OBJECT):
         self.__bop__ = self.__class__.manage[OBJECT.__class__.__name__](OBJECT)
+        self.__class__.nodes.append(self.__bop__)
 
     def O(self):
         return self.__bop__

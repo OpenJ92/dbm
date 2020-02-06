@@ -33,7 +33,7 @@ class TABLE(object):
         self._parent = SCHEMA
         self._name = name
         self._ACTION = ACTION
-        self._actions = [action(self).O().__act__() for action in ACTION]
+        self._actions = {action.__name__ : action(self).O().__act__() for action in ACTION}
         self._data = data; self._children = self.construct_children(); del self._data
         # [action(self).__act__() for action in ACTION]
 

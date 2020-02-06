@@ -22,9 +22,8 @@ class COLUMN(object):
         self._parent = TABLE
         self._name = name
         self._ACTION = ACTION
-        self._actions = [action(self).O().__act__() for action in ACTION]
+        self._actions = {action.__name__ : action(self).O().__act__() for action in ACTION}
         self._data = self.reform_data(data)
-        # [action(self).__act__() for action in ACTION]
 
     def __getitem__(self, item):
         """
@@ -37,9 +36,6 @@ class COLUMN(object):
         returns - src.OBJECT.SCHEMA.SCHEMA
         """
         return self._data[item]
-
-    def __repr__(self):
-        return f"""COLUMN(name={self._name}, table={self._table._name}, schema={self._table._schema._name})"""
 
     def reform_data(self, data):
         """
