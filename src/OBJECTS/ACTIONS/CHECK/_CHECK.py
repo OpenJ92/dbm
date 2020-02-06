@@ -9,6 +9,7 @@ class _CHECK(object):
         self.__check__(); return self
 
     def __check__(self):
+        __import__('pdb').set_trace()
         self.update = False if exists(self._exp) else self.__setup__()
 
     def __setup__(self):
