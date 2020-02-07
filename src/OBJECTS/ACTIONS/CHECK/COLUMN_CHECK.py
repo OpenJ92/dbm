@@ -1,5 +1,3 @@
-from os.path import exists, expanduser
-
 from src.OBJECTS.ACTIONS.CHECK.TABLE_CHECK import TABLE_CHECK
 
 class COLUMN_CHECK(TABLE_CHECK):
