@@ -27,7 +27,6 @@ class CHANGE_REPORT(object):
             with open(self._log_dir, "w+") as f:
                 template = self._env.get_template('distill.data.change')
                 rendered = template.render(DATABASE=self._database)
-                __import__('pdb').set_trace()
                 f.write(rendered)
 
 
