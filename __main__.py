@@ -8,4 +8,3 @@ if __name__ == '__main__':
     with CONNECT('RAW') as raw:
         data = DATABASE(raw, ACTION = [CHECK])
         CHANGE_REPORT(data)
-

@@ -9,13 +9,18 @@ class _CHECK(object):
         self.__check__(); return self
 
     def __check__(self):
-        False if exists(self._exp) else (self.__setup__() and self.__update__())
-
-    def __update__(self):
-        __import__('pdb').set_trace()
-        self.update = True if (not self._parent and self._parent.__update__()) else True
+        if not exists(self._exp): 
+            self.__setup__()
+        else: 
+            self.update = False
 
     def __setup__(self):
-        mkdir(self._exp); open(f"{self._exp}/policy", 'a').close()
-        return True
+        mkdir(self._exp)
+        open(f"{self._exp}/policy", 'a').close()
+        self.__update__()
+
+    def __update__(self):
+        self.update = True
+        if self._parent: self._parent.__update__()
+
 
