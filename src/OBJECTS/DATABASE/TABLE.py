@@ -1,8 +1,8 @@
 
-from src.OBJECTS.COLUMN import COLUMN
+from src.OBJECTS.DATABASE.COLUMN import COLUMN
 
 class TABLE(object):
-    def __init__(self, SCHEMA, name, data):
+    def __init__(self, SCHEMA, name, data, ACTION = []):
         """
         __init__(self, SCHEMA, name, data):
             SCHEMA::src.OBJECTS.SCHEMA.SCHEMA - schema object defined
@@ -16,23 +16,26 @@ class TABLE(object):
             _name::string - Table name
             _data::pandas.DataFrame - Filtered data queried from src.CONNECT object
             _dir::string - File to map table to.
-            read_data::list - list of strings of names of columns
+            read_data::list - list of strings of names of children
             _data::pandas.DataFrame - Filtered data queried from src.CONNECT object
-            _columns::list - list of src.OBJECT.COLUMN objects
+            _children::list - list of src.OBJECT.COLUMN objects
 
         function: Attribute nessesary state to src.OBJECT.TABLE.TABLE
             object, check the existance of such a table in currently stored
             images, and construct src.OBJECTS.TABLE.TABLE objects. Upon comp-
             letion of the construction of src.OBJECT.COLUMN.COLUMN objects, if
-            any of those columns triggered the _update attribute to trigger, 
+            any of those children triggered the _update attribute to trigger, 
             We then construct that file and write the contents of the rendered 
             template to that file.
 
         returns - self
         """
-        self._schema = SCHEMA
+        self._parent = SCHEMA
         self._name = name
-        self._data = data; self._columns = self.construct_columns(); del self._data
+        self._ACTION = ACTION
+        self._actions = {action.__name__ : action(self).O().__act__() for action in ACTION}
+        self._data = data; self._children = self.construct_children(); del self._data
+        # [action(self).__act__() for action in ACTION]
 
     def __getitem__(self, item):
         """
@@ -44,9 +47,9 @@ class TABLE(object):
 
         returns - src.OBJECT.SCHEMA.SCHEMA
         """
-        return self._columns[item]
+        return self._children[item]
 
-    def construct_columns(self):
+    def construct_children(self):
         """
         construct_schemas(self)
 
@@ -56,14 +59,15 @@ class TABLE(object):
             SCHEMA.SCHEMA for further details.
 
         """
-        unique_columns = self._data['COLUMN_NAME'].unique()
+        unique_children = self._data['COLUMN_NAME'].unique()
         return [
                 COLUMN(
                         self,
                         column,
                         self._data[
                             self._data['COLUMN_NAME'] == column
-                                  ]
+                                  ],
+                        self._ACTION
                        )
-                for column in unique_columns
+                for column in unique_children
                ]

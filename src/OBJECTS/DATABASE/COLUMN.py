@@ -1,5 +1,5 @@
 class COLUMN(object):
-    def __init__(self, TABLE, name, data):
+    def __init__(self, TABLE, name, data, ACTION = []):
         """
         __init__(self, TABLE, name, data):
             TABLE::src.OBJECTS.TABLE.TABLE - table object defined
@@ -19,8 +19,10 @@ class COLUMN(object):
             images, and update coresponding tables _update attribute if it 
             does not exist.
         """
-        self._table = TABLE
+        self._parent = TABLE
         self._name = name
+        self._ACTION = ACTION
+        self._actions = {action.__name__ : action(self).O().__act__() for action in ACTION}
         self._data = self.reform_data(data)
 
     def __getitem__(self, item):
@@ -34,9 +36,6 @@ class COLUMN(object):
         returns - src.OBJECT.SCHEMA.SCHEMA
         """
         return self._data[item]
-
-    def __repr__(self):
-        return f"""COLUMN(name={self._name}, table={self._table._name}, schema={self._table._schema._name})"""
 
     def reform_data(self, data):
         """

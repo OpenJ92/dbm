@@ -1,8 +1,7 @@
-
-from src.OBJECTS.TABLE import TABLE
+from src.OBJECTS.DATABASE.TABLE import TABLE
 
 class SCHEMA(object):
-    def __init__(self, DATABASE, name, data):
+    def __init__(self, DATABASE, name, data, ACTION = []):
         """
         __init__(self, DATABASE, name, data):
             DATABASE::src.OBJECTS.DATABASE.DATABASE - database object defined
@@ -16,16 +15,18 @@ class SCHEMA(object):
             _name::string - Schema name
             _data::pandas.DataFrame - Filtered data queried from src.CONNECT object
             _dir::string - Location to map schema to.
-            _tables::list - list of src.OBJECT.TABLE objects
+            _children::list - list of src.OBJECT.TABLE objects
 
         function: Attribute nessesary state to src.OBJECT.SCHEMA.SCHEMA 
             object, check the existance of such a schem a in currently stored
             images, and construct src.OBJECTS.TABLE.TABLE objects.
         """
-        self._database = DATABASE
+        self._parent = DATABASE
         self._name = name
         self._data = data
-        self._tables = self.construct_tables(); del self._data
+        self._ACTION = ACTION
+        self._actions = {action.__name__ : action(self).O().__act__() for action in ACTION}
+        self._children = self.construct_children(); del self._data
     
     def __getitem__(self, item):
         """
@@ -37,9 +38,9 @@ class SCHEMA(object):
 
         returns - src.OBJECT.SCHEMA.SCHEMA
         """
-        return self._tables[item]
+        return self._children[item]
 
-    def construct_tables(self):
+    def construct_children(self):
         """
         construct_schemas(self)
 
@@ -49,14 +50,15 @@ class SCHEMA(object):
             SCHEMA.SCHEMA for further details.
 
         """
-        unique_tables = self._data['TABLE_NAME'].unique()
+        unique_children = self._data['TABLE_NAME'].unique()
         return [
                 TABLE(
                        self,
                        table,
                        self._data[
                            self._data['TABLE_NAME'] == table
-                                 ]
+                                 ],
+                        self._ACTION
                       )
-                for table in unique_tables
+                for table in unique_children
                ]

@@ -1,5 +1,6 @@
 #!/bin/zsh
-cd ~/Knotel/scd; source ~/.zshrc; git checkout master; 
+cd ~/Knotel/scd; source ~/.zshrc; 
+branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p'); git checkout run; 
 conda activate scd; ipython __main__.py; conda deactivate
 if [ -s ~/tmp/.scd/data.change ]
 then
@@ -7,3 +8,4 @@ then
 		$(cat ~/.scd/mail)
 fi
 mv ~/tmp/.scd/data.change ~/.scd/logs/RAW/$(date +%d-%m-%y-%H-%M-%S).data.change
+git checkout $branch;
