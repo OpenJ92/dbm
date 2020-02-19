@@ -16,7 +16,6 @@ class _CHECK(object):
 
     def __setup__(self):
         mkdir(self._exp)
-        open(f"{self._exp}/policy", 'a').close()
         self.__update__()
 
     def __update__(self):

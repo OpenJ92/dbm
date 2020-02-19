@@ -1,4 +1,0 @@
-We seek to distill the process of change detection from the construction
-of the model of database. That is, make an object CHANGE that is a unary
-operator on DATABASE object. The design is in such a way that 
-we can add new operators that act on the space of databases.
