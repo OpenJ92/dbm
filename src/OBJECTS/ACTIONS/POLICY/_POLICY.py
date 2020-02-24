@@ -10,8 +10,7 @@ class _POLICY(object):
         self.__read_policy__(); return self
 
     def __read_policy__(self):
-        if not exists(self._exp): 
-            self.__setup__()
+        self.__setup__()
         with open(f"{self._exp}/policy", 'r') as c:
             self.policy = load(c, Loader=FullLoader)
 

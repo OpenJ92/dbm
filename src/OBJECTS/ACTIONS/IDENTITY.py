@@ -3,4 +3,4 @@ class IDENTITY(object):
         self._OBJECT = OBJECT
 
     def __act__(self):
-        return self._OBJECT
+        return self

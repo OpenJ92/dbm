@@ -9,10 +9,19 @@ class DBT(object):
     def _write_dbt_file(self, database):
         template = self._env.get_template('distill.dbt.sql')
         for schema in database:
+            page = f"{expanduser('~')}/.scd/test/{database._name}/{schema._name}/dbt.yml"
+            if not exists(page):
+                with open(page, 'w') as f:
+                    template = self._env.get_template('distill.dbt.schema.yml')
+                    rendered = template.render(SCHEMA=schema)
+                    f.write(rendered)
+                    print(rendered)
             for table in schema:
                 page = f"{expanduser('~')}/.scd/test/{database._name}/{schema._name}/{table._name}/dbt.sql"
+                template = self._env.get_template('distill.dbt.sql')
                 if not exists(page):
                     with open(page, 'w') as f:
+                        template = self._env.get_template('distill.dbt.sql')
                         rendered = template.render(TABLE=table)
                         f.write(rendered)
                         print(rendered)
