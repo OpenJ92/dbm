@@ -57,5 +57,5 @@ class DATABASE(object):
                                   ],
                         self._ACTION
                         )                                               
-                 for schema in unique_schema                            
+                 for schema in unique_schema
                ]

@@ -1,0 +1,6 @@
+INCLUDE:
+{% for child in OBJECT -%}
+       - {{ child._name }} 1
+{% endfor %}
+
+RELATION:
