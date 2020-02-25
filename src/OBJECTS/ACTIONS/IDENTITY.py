@@ -1,6 +1,6 @@
 class IDENTITY(object):
     def __init__(self, OBJECT):
-        self._OBJECT = OBJECT
+        pass
 
     def __act__(self):
         return self

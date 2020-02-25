@@ -5,5 +5,5 @@ class _DBT(object):
     def __act__(self):
         if not exists(self._page):
             with open(self._page, 'w') as f:
-                rendered = template.render(TABLE=table)
-                f.write(rendered)
+                f.write(self._template.render(OBJECT=self._object))
+        return self
