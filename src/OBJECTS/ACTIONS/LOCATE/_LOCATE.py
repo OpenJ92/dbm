@@ -1,7 +1,7 @@
 from os.path import exists, expanduser
 from os import mkdir
 
-class _CHECK(object):
+class _LOCATE(object):
     def __init__(self, IMAGE_DIR = f"{expanduser('~')}/.scd/test"):
         self._exp = IMAGE_DIR
 

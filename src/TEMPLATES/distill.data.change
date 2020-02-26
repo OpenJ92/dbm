@@ -1,19 +1,19 @@
-{% if DATABASE._actions['CHECK'].update == True -%}
+{% if DATABASE._actions['LOCATE'].update == True -%}
 CHANGES
 | {{DATABASE._name}}
 {% endif -%}
 {% for SCHEMA in DATABASE -%}
-{% if SCHEMA._actions['CHECK'].update == True -%}
+{% if SCHEMA._actions['LOCATE'].update == True -%}
 | -----
 | ----- {{SCHEMA._name}}
 {% endif -%}
 {% for TABLE in SCHEMA -%}
-{% if TABLE._actions['CHECK'].update == True -%}
+{% if TABLE._actions['LOCATE'].update == True -%}
 | -------------
 | ------------- {{TABLE._name}} 
 {% endif -%}
 {% for COLUMN in TABLE -%}
-{% if COLUMN._actions['CHECK'].update == True -%}
+{% if COLUMN._actions['LOCATE'].update == True -%}
 | +++++++++++++++++++++ {{COLUMN._name}}
 {% endif %}
 {%- endfor %}
