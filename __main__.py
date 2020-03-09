@@ -10,6 +10,6 @@ if __name__ == '__main__':
     with CONNECT('RAW') as raw:
         data = DATABASE(raw, ACTION = [LOCATE, POLICY])
         # CHANGE_REPORT(data)
-        DBT(data)
+        # DBT(data)
 
 # access to global macros https://stackoverflow.com/questions/5034437/accessing-global-attributes-from-inside-a-macro-in-jinja2

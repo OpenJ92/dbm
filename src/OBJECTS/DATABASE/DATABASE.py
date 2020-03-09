@@ -1,7 +1,7 @@
 from src.OBJECTS.DATABASE.SCHEMA import SCHEMA 
 
 class DATABASE(object):
-    def __init__(self, CONNECT, ACTION = []):
+    def __init__(self, CONNECT, ACTION = [], POST_ACTION = []):
         """
         __init__(self):
             CONNECT::src.CONNECT - connect object defined @ scd/src/CONNECT
@@ -23,8 +23,10 @@ class DATABASE(object):
         self._name = CONNECT.name
         self._data = CONNECT._extract('select * from columns;')
         self._ACTION = ACTION
+        self._POST_ACTION = POST_ACTION
         self._actions = {action.__name__ : action(self).O().__act__() for action in ACTION}
         self._children = self.construct_children(); del self._data
+        self._post_actions = {action.__name__ : action(self).O().__act__() for action in POST_ACTION}
 
     def __getitem__(self, item):
         """
@@ -37,6 +39,7 @@ class DATABASE(object):
         returns - src.OBJECT.SCHEMA.SCHEMA
         """
         return self._children[item]
+
     def construct_children(self):
         """
         construct_children(self)
@@ -55,7 +58,8 @@ class DATABASE(object):
                         self._data[
                             self._data['TABLE_SCHEMA'] == schema
                                   ],
-                        self._ACTION
+                        self._ACTION, 
+                        self._POST_ACTION
                         )                                               
                  for schema in unique_schema
                ]

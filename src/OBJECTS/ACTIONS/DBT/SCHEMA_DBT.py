@@ -10,5 +10,5 @@ class SCHEMA_DBT(_DBT):
                                      f"{SCHEMA.__class__.__name__}"
                                    ].population[f"{SCHEMA._name}"]
         self._object = SCHEMA
-        self._page = f"{self._check._exp}/dbt.sql"
-        self._template = self._env.get_template('distill.dbt.schema.yml')
+        self._page = f"{self._check._exp}/_dbt.sql"
+        self._template = self._env.get_temtlate('distill.dbt.schema.yml')
