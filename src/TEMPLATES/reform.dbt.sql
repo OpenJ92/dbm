@@ -11,7 +11,7 @@ with src_{{ OBJECT._parent._name }}_{{ OBJECT._name }} as (
 renamed_{{ OBJECT._parent._name }}_{{ OBJECT._name }} as (
 	select
 	{% for COLUMN in OBJECT._children -%}
-		"{{ COLUMN._name }}" as {{- OBJECT._name | lower }}__
+		"{{ COLUMN._name }}" as {{ OBJECT._name | lower }}__
 		{{- COLUMN._name | lower }}
 		{%- if not loop.last -%} , {%- endif %}
 	{% endfor %}
