@@ -4,7 +4,6 @@ from os import mkdir
 
 class _POLICY(object):
     def __init__(self, env):
-        print("_POLICY")
         self._env = env
 
     def __act__(self):

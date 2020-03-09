@@ -4,7 +4,6 @@ from src.OBJECTS.ACTIONS.POLICY.SCHEMA_POLICY import SCHEMA_POLICY
 class TABLE_POLICY(SCHEMA_POLICY):
     population = {}
     def __init__(self, TABLE, env):
-        print("TABLE_POLICY")
         SCHEMA_POLICY.__init__(self, TABLE._parent, env)
         self._object = TABLE
         self._template = env.get_template('reform.policy.yml')
