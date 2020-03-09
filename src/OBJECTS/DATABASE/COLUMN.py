@@ -1,5 +1,5 @@
 class COLUMN(object):
-    def __init__(self, TABLE, name, data, ACTION = []):
+    def __init__(self, TABLE, name, data, ACTION = [], POST_ACTION = []):
         """
         __init__(self, TABLE, name, data):
             TABLE::src.OBJECTS.TABLE.TABLE - table object defined

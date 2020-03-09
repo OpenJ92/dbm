@@ -21,5 +21,5 @@ class _POLICY(object):
                 f.write(self._template.render(OBJECT=self._object))
 
     def __get_location__(self):
-        self._exp = self._check._exp
+        self._exp = self._locate._exp
 

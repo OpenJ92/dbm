@@ -68,7 +68,8 @@ class TABLE(object):
                         self._data[
                             self._data['COLUMN_NAME'] == column
                                   ],
-                        self._ACTION
+                        self._ACTION,
+                        self._POST_ACTION
                        )
                 for column in unique_children
                ]

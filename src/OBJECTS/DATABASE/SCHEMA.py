@@ -60,7 +60,8 @@ class SCHEMA(object):
                        self._data[
                            self._data['TABLE_NAME'] == table
                                  ],
-                        self._ACTION
+                        self._ACTION,
+                        self._POST_ACTION
                       )
                 for table in unique_children
                ]

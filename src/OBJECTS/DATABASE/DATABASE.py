@@ -30,7 +30,7 @@ class DATABASE(object):
 
     def __getitem__(self, item):
         """
-        __getitem__(self, item)
+        __getitem__(self, itemt
         item::int
 
         function: Afford src.OBJECT.DATABASE.DATABASE itterable
