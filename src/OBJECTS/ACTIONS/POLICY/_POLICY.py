@@ -4,7 +4,7 @@ from os import mkdir
 
 class _POLICY(object):
     def __init__(self, env):
-        self.__get_location__()
+        print("_POLICY")
         self._env = env
 
     def __act__(self):
@@ -19,7 +19,3 @@ class _POLICY(object):
         if not exists(f"{self._exp}/policy.yml"):
             with open(f"{self._exp}/policy.yml", 'a') as f:
                 f.write(self._template.render(OBJECT=self._object))
-
-    def __get_location__(self):
-        self._exp = self._locate._exp
-

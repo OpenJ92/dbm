@@ -16,6 +16,7 @@ class POLICY(object):
     env = Environment(loader=PackageLoader('src', 'TEMPLATES'))
     
     def __init__(self, OBJECT):
+        print("CONTEXT FACTORY")
         self.__bop__ = self.__class__.manage[OBJECT.__class__.__name__](OBJECT, self.__class__.env)
 
     def O(self):
