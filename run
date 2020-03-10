@@ -1,11 +1,11 @@
 #!/bin/zsh
 cd ~/Knotel/scd; source ~/.zshrc; 
-branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p'); git checkout run; 
+branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p'); git checkout feature/reform; 
 conda activate scd; ipython __main__.py; conda deactivate
 if [ -s ~/tmp/.scd/data.change ]
 then
 	cat ~/tmp/.scd/data.change | mail -s "$(date +%d-%m-%y-%H-%M-%S)"\
-		$(cat ~/.scd/mail)
+		$(cat ~/.scd/test_mail)
 fi
 mv ~/tmp/.scd/data.change ~/.scd/logs/RAW/$(date +%d-%m-%y-%H-%M-%S).data.change
 git checkout $branch;
