@@ -1,7 +1,7 @@
 from src.OBJECTS.DATABASE.TABLE import TABLE
 
 class SCHEMA(object):
-    def __init__(self, DATABASE, name, data, ACTION = []):
+    def __init__(self, DATABASE, name, data, ACTION = [], POST_ACTION = []):
         """
         __init__(self, DATABASE, name, data):
             DATABASE::src.OBJECTS.DATABASE.DATABASE - database object defined
@@ -25,8 +25,10 @@ class SCHEMA(object):
         self._name = name
         self._data = data
         self._ACTION = ACTION
+        self._POST_ACTION = POST_ACTION
         self._actions = {action.__name__ : action(self).O().__act__() for action in ACTION}
         self._children = self.construct_children(); del self._data
+        self._post_actions = {action.__name__ : action(self).O().__act__() for action in POST_ACTION}
     
     def __getitem__(self, item):
         """
@@ -58,7 +60,8 @@ class SCHEMA(object):
                        self._data[
                            self._data['TABLE_NAME'] == table
                                  ],
-                        self._ACTION
+                        self._ACTION,
+                        self._POST_ACTION
                       )
                 for table in unique_children
                ]

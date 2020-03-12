@@ -2,7 +2,7 @@ from jinja2 import Environment, PackageLoader
 
 from src.OBJECTS.ACTIONS.DBT.SCHEMA_DBT import SCHEMA_DBT
 from src.OBJECTS.ACTIONS.DBT.TABLE_DBT import TABLE_DBT
-from src.OBJECTS.ACTIONS import IDENTITY
+from src.OBJECTS.ACTIONS.IDENTITY import IDENTITY
 
 class DBT(object):
     manage = {

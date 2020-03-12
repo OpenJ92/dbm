@@ -1,5 +1,5 @@
 class COLUMN(object):
-    def __init__(self, TABLE, name, data, ACTION = []):
+    def __init__(self, TABLE, name, data, ACTION = [], POST_ACTION = []):
         """
         __init__(self, TABLE, name, data):
             TABLE::src.OBJECTS.TABLE.TABLE - table object defined
@@ -22,8 +22,10 @@ class COLUMN(object):
         self._parent = TABLE
         self._name = name
         self._ACTION = ACTION
+        self._POST_ACTION = POST_ACTION
         self._actions = {action.__name__ : action(self).O().__act__() for action in ACTION}
         self._data = self.reform_data(data)
+        self._post_actions = {action.__name__ : action(self).O().__act__() for action in POST_ACTION}
 
     def __getitem__(self, item):
         """
