@@ -15,6 +15,6 @@ class _POLICY(object):
             self.policy = load(c, Loader=FullLoader)
 
     def __setup__(self):
-        if not exists(f"{self._exp}/policy.yml"):
+        if not exists(f"{self._exp}/policy.yml") or self._object.update:
             with open(f"{self._exp}/policy.yml", 'a') as f:
                 f.write(self._template.render(OBJECT=self._object))

@@ -5,7 +5,7 @@ class _DBT(object):
         self._env = env
 
     def __act__(self):
-        if not exists(self._page):
+        if not exists(self._page) or self._object.update:
             with open(self._page, 'w') as f:
                 f.write(self._template.render(OBJECT=self._object))
         return self

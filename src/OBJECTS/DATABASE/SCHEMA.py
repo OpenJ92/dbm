@@ -21,6 +21,7 @@ class SCHEMA(object):
             object, check the existance of such a schem a in currently stored
             images, and construct src.OBJECTS.TABLE.TABLE objects.
         """
+        self.update = False
         self._parent = DATABASE
         self._name = name
         self._data = data

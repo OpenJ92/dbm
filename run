@@ -1,7 +1,7 @@
 #!/bin/zsh
 cd ~/Knotel/scd; source ~/.zshrc; 
 branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p'); git checkout feature/reform; 
-conda activate scd; ipython __main__.py; conda deactivate
+conda activate scd; ipython __main__.py $1; conda deactivate
 if [ -s ~/tmp/.scd/data.change ]
 then
 	cat ~/tmp/.scd/data.change | mail -s "$(date +%d-%m-%y-%H-%M-%S)"\
@@ -9,3 +9,7 @@ then
 fi
 mv ~/tmp/.scd/data.change ~/.scd/logs/RAW/$(date +%d-%m-%y-%H-%M-%S).data.change
 git checkout $branch;
+
+cd ~/.scd/db/$1 
+git status -s | awk -F ' ' '{print $2}' | xargs git add
+git status -s | git commit -F -
