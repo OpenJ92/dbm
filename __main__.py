@@ -12,4 +12,3 @@ if __name__ == '__main__':
         data = DATABASE(raw, ACTION = [LOCATE, POLICY], POST_ACTION = [DBT, LOOKER])
         CHANGE_REPORT(data)
 
-    __import__('pdb').set_trace()
