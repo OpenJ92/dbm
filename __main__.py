@@ -1,3 +1,5 @@
+import sys
+
 from src.CONNECT import CONNECT
 from src.OBJECTS.DATABASE.DATABASE import DATABASE
 
@@ -8,7 +10,7 @@ from src.OBJECTS.ACTIONS.LOOKER.context import LOOKER
 from src.OBJECTS.UNARY.CHANGE_REPORT import CHANGE_REPORT
 
 if __name__ == '__main__':
-    with CONNECT('RAW') as raw:
-        data = DATABASE(raw, ACTION = [LOCATE, POLICY], POST_ACTION = [DBT, LOOKER])
+    with CONNECT(sys.argv[1]) as db:
+        data = DATABASE(db, ACTION = [LOCATE, POLICY], POST_ACTION = [DBT, LOOKER])
         CHANGE_REPORT(data)
 

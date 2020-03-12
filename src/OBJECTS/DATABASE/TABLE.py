@@ -30,6 +30,7 @@ class TABLE(object):
 
         returns - self
         """
+        self.update = False
         self._parent = SCHEMA
         self._name = name
         self._ACTION = ACTION
